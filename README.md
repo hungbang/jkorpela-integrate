@@ -1,3 +1,14 @@
+# How to import jkorpela-integrate to your code
+1.    Download source code 
+2.    run 
+
+
+     {
+         mvn clean install
+     }
+
+3.    Import target/jkorpela-integrate-1.0-SNAPSHOT.jar to your source code and do like instruction
+
 # jkorpela-integrate
 - to init JkorpelaService with proxy
 

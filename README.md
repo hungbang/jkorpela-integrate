@@ -26,3 +26,15 @@
         DocumentStatusResponse documentStatusResponse = this.jkorpelaService.fetchDocumentStatus(documentBody);
         System.out.println(objectMapper.writeValueAsString(documentStatusResponse));
     }
+
+# Response example
+-    No block
+
+    {  
+     "datafile":"test",
+     "block":false,
+     "reason":null,
+     "options":null,
+     "forcePoint":"Processed 2018-09-01T15:44Z",
+     "textline":"**Block.docx**file (application/vnd.openxmlformats-officedocument.wordprocessingml.document, first line or max. 40 octets shown): PK\u0003\u0004\u0014\u0000\u0006\u0000\b\u0000\u0000\u0000!\u0000ß¤ÒlZ\u0001\u0000\u0000 \u0005\u0000\u0000\u0013\u0000\b\u0002[Content_T"
+     }

@@ -1,0 +1,45 @@
+package jkorpela.fi;
+
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.http.*;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.client.RestTemplate;
+
+import java.io.File;
+
+import static org.springframework.http.HttpHeaders.USER_AGENT;
+
+/**
+ * Created by KAI on 9/1/18.
+ * Copyright 2018 by jkorpela-integrate
+ * All rights reserved.
+ */
+public class JkorpelaService {
+
+    private static final RestTemplate restTemplate = new RestTemplate();
+
+    public static void main(String[] args) {
+        final String url = "http://jkorpela.fi/cgi-bin/echo.cgi";
+        final String path = "/Users/KAI/Downloads/temp14_20-Aug-2018_09-49-22-497.docx";
+        final String block = "/Users/KAI/Downloads/Block.docx";
+
+        File file = new File(block);
+        MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
+        FileSystemResource fileSystemResource = new FileSystemResource(file);
+        map.add("datafile", fileSystemResource);
+        map.add("textline", "testfile");
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("User-Agent", USER_AGENT);
+        headers.setContentType(MediaType.MULTIPART_FORM_DATA);
+
+        final HttpEntity httpEntity = new HttpEntity(map, headers);
+
+        ResponseEntity responseEntity = restTemplate.exchange(url, HttpMethod.POST, httpEntity, String.class);
+        if (responseEntity.getStatusCode().is2xxSuccessful()) {
+            System.out.println(responseEntity.getBody());
+        }
+
+    }
+}

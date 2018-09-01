@@ -2,14 +2,11 @@ package jkorpela.fi;
 
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.http.*;
-import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.File;
-import java.net.InetSocketAddress;
-import java.net.Proxy;
 
 import static org.springframework.http.HttpHeaders.USER_AGENT;
 
@@ -40,7 +37,7 @@ public class JkorpelaService {
 
         final HttpEntity httpEntity = new HttpEntity(map, headers);
 
-        setProxy();
+//        setProxy();
 
         ResponseEntity responseEntity = restTemplate.exchange(url, HttpMethod.POST, httpEntity, String.class);
         if (responseEntity.getStatusCode().is2xxSuccessful()) {
@@ -52,11 +49,5 @@ public class JkorpelaService {
 
     }
 
-    //TODO[HBQ, S1] setting proxy for resttemplate
-    private static void setProxy() {
-        SimpleClientHttpRequestFactory requestFactory = new SimpleClientHttpRequestFactory();
-        Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress("172.16.12.136", 80));
-        requestFactory.setProxy(proxy);
-        restTemplate.setRequestFactory(requestFactory);
-    }
+
 }
